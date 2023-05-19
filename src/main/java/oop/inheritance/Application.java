@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import oop.inheritance.data.CommunicationType;
 import oop.inheritance.data.SupportedTerminal;
 import oop.inheritance.tpv.*;
-import oop.inheritance.tpv.ingenico.IngenicoDisplayAdapter;
-import oop.inheritance.tpv.verifone240.Verifone240DisplayAdapter;
 import oop.library.ingenico.model.Card;
 import oop.library.ingenico.model.Transaction;
 import oop.library.ingenico.model.TransactionResponse;
@@ -14,11 +12,11 @@ import oop.library.ingenico.services.*;
 import oop.library.v240m.VerifoneV240mDisplay;
 
 public class Application {
-
+    private SupportedTerminal supportedTerminal;
     private CommunicationType communicationType = CommunicationType.ETHERNET;
     private TpvDeviceFactory tpvDeviceFactory;
 
-    public Application(TpvDeviceFactory tpvDeviceFactory) {
+    public Application(SupportedTerminal tpvDeviceFactory) {
         this.tpvDeviceFactory=tpvDeviceFactory;
     }
 
@@ -71,7 +69,8 @@ public class Application {
 
         ingenicoDisplay.clear();
         ingenicoDisplay.showMessage(5, 20, "Capture monto:");
-//strategy
+        //strategy
+        //Singleton
         String amount = ingenicoKeyboard.readLine(); //Amount with decimal point as string
 
         Transaction transaction = new Transaction();
