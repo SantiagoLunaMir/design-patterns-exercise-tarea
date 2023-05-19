@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 import oop.inheritance.data.CommunicationType;
 import oop.inheritance.data.SupportedTerminal;
+import oop.inheritance.tpv.*;
+import oop.inheritance.tpv.ingenico.IngenicoDisplayAdapter;
+import oop.inheritance.tpv.verifone240.Verifone240DisplayAdapter;
 import oop.library.ingenico.model.Card;
 import oop.library.ingenico.model.Transaction;
 import oop.library.ingenico.model.TransactionResponse;
@@ -13,14 +16,20 @@ import oop.library.v240m.VerifoneV240mDisplay;
 public class Application {
 
     private CommunicationType communicationType = CommunicationType.ETHERNET;
-    private SupportedTerminal supportedTerminal;
+    private TpvDeviceFactory tpvDeviceFactory;
 
-    public Application(SupportedTerminal supportedTerminal) {
-        this.supportedTerminal = supportedTerminal;
+    public Application(TpvDeviceFactory tpvDeviceFactory) {
+        this.tpvDeviceFactory=tpvDeviceFactory;
     }
 
     public void showMenu() {
-        if (supportedTerminal == SupportedTerminal.INGENICO) {
+        Display display= tpvDeviceFactory.getDisplay();
+        display.print(5, 5, "MENU");
+        display.print(5, 10, "1. VENTA");
+        display.print(5, 13, "2. DEVOLUCION");
+        display.print(5, 16, "3. REPORTE");
+        display.print(5, 23, "4. CONFIGURACION");
+       /* if (supportedTerminal == SupportedTerminal.INGENICO) {
             IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
 
             ingenicoDisplay.showMessage(5, 5, "MENU");
@@ -36,14 +45,14 @@ public class Application {
             verifoneV240mDisplay.print(5, 13, "2. DEVOLUCION");
             verifoneV240mDisplay.print(5, 16, "3. REPORTE");
             verifoneV240mDisplay.print(5, 23, "4. CONFIGURACION");
-        }
+        }*/
 
     }
 
     public String readKey() {
-        IngenicoKeyboard ingenicoKeyboard = new IngenicoKeyboard();
+        Keyboard keyboard= tpvDeviceFactory.getKeyboard();
 
-        return ingenicoKeyboard.getChar();
+        return keyboard.getChar();
     }
 
     public void doSale() {
@@ -62,7 +71,7 @@ public class Application {
 
         ingenicoDisplay.clear();
         ingenicoDisplay.showMessage(5, 20, "Capture monto:");
-
+//strategy
         String amount = ingenicoKeyboard.readLine(); //Amount with decimal point as string
 
         Transaction transaction = new Transaction();
@@ -144,5 +153,9 @@ public class Application {
 
             verifoneV240mDisplay.clear();
         }
+    }
+
+    public SupportedTerminal getSupportedTerminal() {
+        return supportedTerminal;
     }
 }

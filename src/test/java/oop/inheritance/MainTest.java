@@ -4,7 +4,7 @@ package oop.inheritance;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class MainTest {
+public class MainTest {//this
     @Test
     public void when1istypedshowSale() {
         //Given
