@@ -21,13 +21,7 @@ public class Application {
     }
 
     public void showMenu() {
-        Display display= tpvDeviceFactory.getDisplay();
-        display.print(5, 5, "MENU");
-        display.print(5, 10, "1. VENTA");
-        display.print(5, 13, "2. DEVOLUCION");
-        display.print(5, 16, "3. REPORTE");
-        display.print(5, 23, "4. CONFIGURACION");
-       /* if (supportedTerminal == SupportedTerminal.INGENICO) {
+        if (supportedTerminal == SupportedTerminal.INGENICO) {
             IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
 
             ingenicoDisplay.showMessage(5, 5, "MENU");
@@ -43,7 +37,7 @@ public class Application {
             verifoneV240mDisplay.print(5, 13, "2. DEVOLUCION");
             verifoneV240mDisplay.print(5, 16, "3. REPORTE");
             verifoneV240mDisplay.print(5, 23, "4. CONFIGURACION");
-        }*/
+        }
 
     }
 
